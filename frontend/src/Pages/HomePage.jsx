@@ -1,8 +1,14 @@
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 function HomePage() {
   return (
-    <div>HomePage</div>
+    <Box>
+      <Typography>
+        HomePage
+      </Typography>
+
+    </Box>
   )
 }
 

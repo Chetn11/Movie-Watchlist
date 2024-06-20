@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Box, AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
-const navItems = ["Movie List", "Watched Movies", "Add movies"];
+const navItems = [
+  { label: "Watched Movies", path: "/watched-movies" },
+  { label: "Unwatched Movies", path: "/unwatched-movies" },
+  { label: "Add movies", path: "/add-movies" }
+];
 
 function Navbar() {
   const [hamburger, setHamburger] = useState(null);
@@ -13,31 +18,32 @@ function Navbar() {
 
   const handleMenuClose = () => {
     setHamburger(null);
-    
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar component="nav" sx={{backgroundImage:`url("../images/background.jpg")`,backgroundSize: 'cover',
+      <AppBar component="nav" sx={{backgroundImage:`url("../images/background.jpg")`,
           backgroundBlendMode: 'overlay',
           backgroundColor: 'rgba(25, 118, 210, 0.2)'}}>
         <Toolbar>
-          <Typography
-            variant="h5"
-            sx={{ flexGrow: 1, display: 'flex', color:"white" }}
-          >
-            Movies
-          </Typography>
+          
+            <Typography
+              variant="h5"
+              sx={{ flexGrow: 1, display: 'flex' }}
+            >
+             <Link to="/" style={{ textDecoration: 'none', color:"white" }}> Movies </Link>
+            </Typography>
+          
           <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
             <IconButton
               edge="start"
-              color="white"
+              color="inherit"
               onClick={handleMenuOpen}
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              hamburger={hamburger}
+              anchorEl={hamburger}
               anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
@@ -49,19 +55,22 @@ function Navbar() {
               }}
               open={Boolean(hamburger)}
               onClose={handleMenuClose}
-              
             >
               {navItems.map((item) => (
-                <MenuItem key={item} >
-                  {item}
+                <MenuItem key={item.label} onClick={handleMenuClose}>
+                  <Link to={item.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    {item.label}
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <Box sx={{ display: { xs: 'none', sm: 'block',  } }}>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
+              <Button key={item.label} sx={{ color: '#fff' }}>
+                <Link to={item.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  {item.label}
+                </Link>
               </Button>
             ))}
           </Box>
