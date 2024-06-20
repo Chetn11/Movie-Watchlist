@@ -52,7 +52,7 @@ function Navbar() {
               
             >
               {navItems.map((item) => (
-                <MenuItem key={item} onClick={handleMenuClose}>
+                <MenuItem key={item} >
                   {item}
                 </MenuItem>
               ))}
