@@ -17,7 +17,7 @@ function UnwatchedMovies() {
     <Box textAlign="center" justifyContent="center">
       <Box>
         <Typography variant="h3" paddingBottom="20px">
-          UNWatched Movies
+          Unwatched Movies
         </Typography>
       </Box>
       {loading ? (
