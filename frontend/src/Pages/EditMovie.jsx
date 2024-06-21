@@ -1,89 +1,88 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Box,
-  Button,
   TextField,
+  Button,
+  Container,
   Typography,
   Grid,
+  FormControl,
   Select,
   MenuItem,
-  FormControl,
+  Box,
   Rating,
-  Snackbar,
   CircularProgress,
-  Alert,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { postData } from "../Redux/action";
+import { updateData, getData } from "../Redux/action";
+import { useNavigate } from "react-router-dom";
 import ConfirmationBar from "../Components/ConfirmationBar";
 
-
-
-
-
-const AddMovies = () => {
-  const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
+function EditMovie() {
+  const [movieData, setMovieData] = useState({
     title: "",
     image: "",
-    rating: 0,
+    rating: "",
     year: "",
     genre: "",
-    status: false,
     description: "",
+    status: false,
   });
   const [loading, setLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [open, setOpen] = useState(false);                                    // for alert after we add the movie
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  useEffect(() => {
+    const storedMovieData = localStorage.getItem("movieData");
+    if (storedMovieData) {
+      setMovieData(JSON.parse(storedMovieData));
+    }
+  }, []);
 
   const handleRatingChange = (event, newValue) => {
-    setFormData({
-      ...formData,
+    setMovieData({
+      ...movieData,
       rating: newValue,
     });
   };
 
   const handleStatusChange = (e) => {
-    setFormData({
-      ...formData,
+    setMovieData({
+      ...movieData,
       status: e.target.value === "watched",
     });
   };
 
   const handleClose = () => {
+    setSnackbarOpen(false);
+  };
 
-    setOpen(false);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMovieData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
- dispatch(postData(formData));
-    setLoading(false);
-    setSnackbarOpen(true);
-    setFormData({
-      title: "",
-      image: "",
-      rating: 0,
-      year: "",
-      genre: "",
-      status: false,
-      description: "",
+    dispatch(updateData(movieData.id, movieData)).then(() => {
+      dispatch(getData());
+      setLoading(false);
+      setSnackbarOpen(true);
+      localStorage.removeItem("movieData");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     });
   };
-
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" m={6}>
       <Typography variant="h4" gutterBottom>
-        Add New Movie
+        Edit Movie
       </Typography>
       <Box
         component="form"
@@ -99,20 +98,20 @@ const AddMovies = () => {
               fullWidth
               label="Title"
               name="title"
-              value={formData.title}
+              value={movieData.title}
               onChange={handleChange}
               required
             />
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6" textAlign="start" padding="5px">
-              Image Url
+              Image URL
             </Typography>
             <TextField
               fullWidth
               label="Image URL"
               name="image"
-              value={formData.image}
+              value={movieData.image}
               onChange={handleChange}
               required
             />
@@ -124,7 +123,7 @@ const AddMovies = () => {
               </Typography>
               <Select
                 name="status"
-                value={formData.status ? "watched" : "unwatched"}
+                value={movieData.status ? "watched" : "unwatched"}
                 onChange={handleStatusChange}
                 required
               >
@@ -139,7 +138,7 @@ const AddMovies = () => {
             </Typography>
             <Rating
               name="rating"
-              value={formData.rating}
+              value={movieData.rating}
               onChange={handleRatingChange}
               required
             />
@@ -152,7 +151,7 @@ const AddMovies = () => {
               fullWidth
               label="Year"
               name="year"
-              value={formData.year}
+              value={movieData.year}
               onChange={handleChange}
               required
             />
@@ -165,7 +164,7 @@ const AddMovies = () => {
               fullWidth
               label="Genre"
               name="genre"
-              value={formData.genre}
+              value={movieData.genre}
               onChange={handleChange}
               required
             />
@@ -178,7 +177,7 @@ const AddMovies = () => {
               fullWidth
               label="Description"
               name="description"
-              value={formData.description}
+              value={movieData.description}
               onChange={handleChange}
               multiline
               rows={4}
@@ -193,19 +192,20 @@ const AddMovies = () => {
               fullWidth
               disabled={loading}
             >
-              {loading ? <CircularProgress size={24} /> : "Add Movie"}
+              {loading ? <CircularProgress size={24} /> : "Update Movie"}
             </Button>
           </Grid>
         </Grid>
       </Box>
 
       <ConfirmationBar
-      open={snackbarOpen}
-      onClose={handleClose}
-      message="Movie added successfully!"
-      severity="success"/>
+        open={snackbarOpen}
+        onClose={handleClose}
+        message="Movie updated successfully!"
+        severity="success"
+      />
     </Box>
   );
-};
+}
 
-export default AddMovies;
+export default EditMovie;

@@ -45,3 +45,12 @@ export const deleteData=(id)=>async(dispatch)=>{
         dispatch({type:DELETE_DATA_ERROR})
     }
 }
+
+// update data 
+export const updateData=(id,payload)=>async(dispatch)=>{
+    try {
+        await axios.patch(`${baseUrl}/edit/${id}`,payload)
+    } catch (error) {
+        
+    }
+}

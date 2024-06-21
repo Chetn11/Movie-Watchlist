@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -14,8 +13,11 @@ import {
 import { useDispatch } from "react-redux";
 import { getData, toggleData, deleteData } from "../Redux/action";
 import ConfirmationPrompt from "./ConfirmationPrompt";
+import ConfirmationBar from "./ConfirmationBar";
+import { Link, useNavigate } from "react-router-dom";
 
 function MovieCard({
+  id,
   title,
   image,
   rating,
@@ -23,31 +25,33 @@ function MovieCard({
   genre,
   description,
   status,
-  id,
 }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [delLoading, setDelLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [movieToDelete, setMovieToDelete] = useState(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  const changeStatus = (id) => {
+  const changeStatus = () => {
     setLoading(true);
     dispatch(toggleData(id, status));
     dispatch(getData());
     setLoading(false);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = () => {
     setDelLoading(true);
     dispatch(deleteData(id)).then(() => {
       dispatch(getData());
       setDelLoading(false);
       setOpenDialog(false);
+      setSnackbarOpen(true); // Open snackbar after deletion
     });
   };
 
-  const handleOpenDialog = (id) => {
+  const handleOpenDialog = () => {
     setOpenDialog(true);
     setMovieToDelete(id);
   };
@@ -55,6 +59,25 @@ function MovieCard({
   const handleCloseDialog = () => {
     setOpenDialog(false);
     setMovieToDelete(null);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleEdit = () => {
+    const movieData = {
+      id,
+      title,
+      image,
+      rating,
+      year,
+      genre,
+      description,
+      status,
+    };
+    localStorage.setItem("movieData", JSON.stringify(movieData));
+    navigate(`/edit-movies/${id}`);
   };
 
   return (
@@ -97,11 +120,7 @@ function MovieCard({
         </Typography>
       </CardContent>
       <CardActions sx={{ textAlign: "center" }}>
-        <Button
-          size="small"
-          onClick={() => changeStatus(id)}
-          disabled={loading}
-        >
+        <Button size="small" onClick={changeStatus} disabled={loading}>
           {loading ? (
             <CircularProgress size={20} />
           ) : status ? (
@@ -110,10 +129,10 @@ function MovieCard({
             "Unwatched"
           )}
         </Button>
-        <Button size="small">
+        <Button size="small" onClick={handleEdit}>
           <EditIcon />
         </Button>
-        <Button size="small" onClick={() => handleOpenDialog(id)}>
+        <Button size="small" onClick={handleOpenDialog}>
           <DeleteIcon />
         </Button>
       </CardActions>
@@ -125,6 +144,13 @@ function MovieCard({
         loading={delLoading}
         change={movieToDelete}
         title="Delete"
+      />
+
+      <ConfirmationBar
+        open={snackbarOpen}
+        onClose={handleSnackbarClose}
+        message="Movie deleted successfully!"
+        severity="success"
       />
     </Card>
   );

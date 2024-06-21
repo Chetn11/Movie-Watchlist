@@ -26,3 +26,4 @@ function ConfirmationPrompt({ open, onClose, onConfirm, change,loading,title }) 
 }
 
 export default ConfirmationPrompt;
+
