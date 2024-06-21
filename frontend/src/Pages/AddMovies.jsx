@@ -8,7 +8,6 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel,
   Rating,
   Snackbar,
   CircularProgress,
@@ -16,6 +15,10 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { postData } from "../Redux/action";
+
+
+
+
 
 const AddMovies = () => {
   const dispatch = useDispatch();
@@ -200,7 +203,7 @@ const AddMovies = () => {
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={snackbarOpen}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={handleSnackbarClose}
       >
         <Alert

@@ -36,6 +36,7 @@ function WatchedMovies() {
                 genre={ele.genre}
                 status={ele.status}
                 description={ele.description}
+                id={ele._id}
               />
             </Grid>
           ))}

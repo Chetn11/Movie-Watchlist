@@ -25,3 +25,23 @@ export const postData=(payload)=>async(dispatch)=>{
         dispatch({type:POST_DATA_ERROR})
     }
 }
+
+// change status
+export const toggleData=(id,status)=>async(dispatch)=>{
+    try {
+        await axios.patch(`${baseUrl}/edit/${id}`,{status:!status})
+    } catch (error) {
+        
+    }
+}
+
+// delete data
+export const deleteData=(id)=>async(dispatch)=>{
+    try {
+        dispatch({type:DELETE_DATA_LOADING})
+        await axios.delete(`${baseUrl}/delete/${id}`)
+        dispatch({type:DELETE_DATA_SUCCESS})
+    } catch (error) {
+        dispatch({type:DELETE_DATA_ERROR})
+    }
+}
