@@ -8,6 +8,13 @@ Basically it's a Movie List App app where user can See the list of Movies, and y
 ## Deployed Link
 
 Assignment link :- [here](https://movie-watchlist-itn2.vercel.app/).
+Project Backend link  :- [here](https://movie-watchlist-lake.vercel.app/)
+
+Routes for crude operation
+1. Add Data - url/movies/add
+2. Edit Data - url/movies/edit/:movieId
+2. Delete Data - url/movies/delete/:movieId
+2. Get all Data - url/movies
 
 ## Directory Structure
 MOVIE-WatchLIST-/
@@ -29,6 +36,7 @@ MOVIE-WatchLIST-/
 
 ## video of project
 Project video link [here](https://drive.google.com/file/d/1qKZCubv-9Rt1_GGCrU4j7NTjXHj1FS1F/view?usp=sharing)
+
 
 ## Features
 All crude Operations
