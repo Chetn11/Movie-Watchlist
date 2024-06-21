@@ -71,6 +71,10 @@ Home Page
 4. Watched movie status showed in green and Unwatched Movie status showed in red color
 ![Screenshot 1](./frontend/src/images/image%205.PNG)
 
+5.3. Responsive ness
+![Screenshot 1](./frontend/src/images/responsive1.PNG)
+![Screenshot 1](./frontend/src/images/responsive%202.PNG)
+
 5. Other functions are showed in video
 ![here]()
 
