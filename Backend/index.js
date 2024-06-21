@@ -15,7 +15,7 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/movies",moviesRouter)
-app.listen(8000, async()=>{
+app.listen(8080, async()=>{
     try {
         await connection;
         console.log("Connected to MongoDB.")
