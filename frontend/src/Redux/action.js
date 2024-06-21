@@ -31,7 +31,7 @@ export const toggleData=(id,status)=>async(dispatch)=>{
     try {
         await axios.patch(`${baseUrl}/edit/${id}`,{status:!status})
     } catch (error) {
-        
+        console.log(error);
     }
 }
 

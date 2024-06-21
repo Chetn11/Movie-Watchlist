@@ -18,6 +18,12 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link, useNavigate } from "react-router-dom";
 
+
+
+
+
+
+
 function MovieCard({
   id,
   title,
