@@ -14,6 +14,8 @@ import { useDispatch } from "react-redux";
 import { getData, toggleData, deleteData } from "../Redux/action";
 import ConfirmationPrompt from "./ConfirmationPrompt";
 import ConfirmationBar from "./ConfirmationBar";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link, useNavigate } from "react-router-dom";
 
 function MovieCard({
@@ -36,9 +38,10 @@ function MovieCard({
 
   const changeStatus = () => {
     setLoading(true);
-    dispatch(toggleData(id, status));
-    dispatch(getData());
-    setLoading(false);
+    dispatch(toggleData(id, status)).then(() => {
+      dispatch(getData());
+      setLoading(false);
+    });
   };
 
   const handleDelete = () => {
@@ -47,7 +50,7 @@ function MovieCard({
       dispatch(getData());
       setDelLoading(false);
       setOpenDialog(false);
-      setSnackbarOpen(true); // Open snackbar after deletion
+      setSnackbarOpen(true); 
     });
   };
 
@@ -65,7 +68,7 @@ function MovieCard({
     setSnackbarOpen(false);
   };
 
-  const handleEdit = () => {
+  const handleMovie= (value) => {
     const movieData = {
       id,
       title,
@@ -77,7 +80,13 @@ function MovieCard({
       status,
     };
     localStorage.setItem("movieData", JSON.stringify(movieData));
-    navigate(`/edit-movies/${id}`);
+    if(value==="edit"){
+        navigate(`/edit-movies/${id}`);
+    }
+    else{
+        navigate(`/detail-movies/${id}`)
+    }
+    
   };
 
   return (
@@ -90,17 +99,19 @@ function MovieCard({
           transition: "transform 0.2s ease-in-out",
           alignItems: "center",
         },
+        backgroundColor:"#b9c1b8"
       }}
+     
     >
-      <CardMedia component="img" alt="Movie image" height="240" image={image} />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+      <CardMedia component="img" alt="Movie image" height="240" image={image}  onClick={()=>handleMovie("detail")}/>
+      <CardContent  onClick={()=>handleMovie("detail")}>
+        <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', fontStyle: 'italic' }}>
           {title}
         </Typography>
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{ textAlign: "start", padding: "5px" }}
+          sx={{ textAlign: "start", padding: "5px", fontStyle:'Monospace' }}
         >
           Year: {year}
         </Typography>
@@ -120,16 +131,27 @@ function MovieCard({
         </Typography>
       </CardContent>
       <CardActions sx={{ textAlign: "center" }}>
-        <Button size="small" onClick={changeStatus} disabled={loading}>
+        <Button
+          size="small"
+          onClick={changeStatus}
+          disabled={loading}
+          sx={{
+            backgroundColor: status ? "green" : "red",
+            color: "white",
+            '&:hover': {
+              backgroundColor: status ? "darkgreen" : "darkred",
+            }
+          }}
+        >
           {loading ? (
             <CircularProgress size={20} />
           ) : status ? (
-            "Watched"
+            <VisibilityIcon/>
           ) : (
-            "Unwatched"
+            <VisibilityOffIcon/>
           )}
         </Button>
-        <Button size="small" onClick={handleEdit}>
+        <Button size="small" onClick={()=>handleMovie("edit")}>
           <EditIcon />
         </Button>
         <Button size="small" onClick={handleOpenDialog}>

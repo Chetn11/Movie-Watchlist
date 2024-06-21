@@ -6,6 +6,7 @@ import UnwatchedMovies from '../Pages/UnwatchedMovies'
 import AddMovies from '../Pages/AddMovies'
 import { Box } from '@mui/material'
 import EditMovie from '../Pages/EditMovie'
+import MovieDetails from '../Pages/MovieDetails'
 
 function AllRoutes() {
   return (
@@ -17,6 +18,7 @@ function AllRoutes() {
         <Route path='/unwatched-movies' element={<UnwatchedMovies/>}></Route>
         <Route path='/add-movies' element={<AddMovies/>}></Route>
         <Route path='/edit-movies/:id' element={<EditMovie/>}></Route>
+        <Route path='/detail-movies/:id' element={<MovieDetails/>}></Route>
     </Routes>
     </Box>
     
