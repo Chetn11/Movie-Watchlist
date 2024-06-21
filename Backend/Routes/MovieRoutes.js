@@ -23,16 +23,15 @@ moviesRouter.post("/add",async(req,res)=>{
 })
 
 // Edit Data
-moviesRouter.post("/edit/:movieId", async(req,res)=>{
+moviesRouter.patch("/edit/:movieId", async(req,res)=>{
     const movieId=req.params.movieId;
     const payload=req.body
-    try {
-        const movieData=await MoviesModel.findOneAndUpdate({_id:movieId},payload);
-        res.send({data:movieData,message:`${moviesData.title} is updated`})
-    } catch (error) {
-        res.send({message:"Error while Editing data"})
-    }
+     await MoviesModel.findOneAndUpdate({_id:movieId},payload);
+    res.send({message:`Data is updated`})
+    
 })
+
+
 
 // delete Data
 moviesRouter.delete("/delete/:movieId", async(req,res)=>{
