@@ -4,7 +4,6 @@ import HomePage from '../Pages/HomePage'
 import WatchedMovies from '../Pages/WatchedMovies'
 import UnwatchedMovies from '../Pages/UnwatchedMovies'
 import AddMovies from '../Pages/AddMovies'
-import Navbar from '../Components/NavBar'
 import { Box } from '@mui/material'
 
 function AllRoutes() {

@@ -24,7 +24,8 @@ function Navbar() {
     <Box sx={{ display: 'flex' }}>
       <AppBar component="nav" sx={{backgroundImage:`url("../images/background.jpg")`,
           backgroundBlendMode: 'overlay',
-          backgroundColor: 'rgba(25, 118, 210, 0.2)'}}>
+          backgroundColor: 'rgba(25, 118, 210, 0.7)',
+          opacity: '0.8'}}>
         <Toolbar>
           
             <Typography
