@@ -18,9 +18,9 @@ Routes for crude operation
 
 ## Directory Structure
 MOVIE-WatchLIST-/
-|frontend
-  ├─ public/
-  ├─ src/
+├─frontend
+  ├─public/
+  ├─src/
   │ ├─components
     ├─pages
     ├─Redux
