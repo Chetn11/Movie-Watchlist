@@ -28,7 +28,7 @@ MOVIE-WatchLIST-/
 
 
 ## video of project
-Project video link [here]()
+Project video link [here](https://drive.google.com/file/d/1qKZCubv-9Rt1_GGCrU4j7NTjXHj1FS1F/view?usp=sharing)
 
 ## Features
 All crude Operations
@@ -41,6 +41,7 @@ All crude Operations
 - Loading
 - backed build by using Node.js and Added all crude operation in backend
 - Website is Responsive
+- FormValidation
 
 
 
@@ -76,7 +77,7 @@ Home Page
 ![Screenshot 1](./frontend/src/images/responsive%202.PNG)
 
 5. Other functions are showed in video
-![here]()
+![here](https://drive.google.com/file/d/1qKZCubv-9Rt1_GGCrU4j7NTjXHj1FS1F/view?usp=sharing)
 
 
 ## Tech Stack
