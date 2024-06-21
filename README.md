@@ -85,7 +85,7 @@ Home Page
 ![Screenshot 1](./frontend/src/images/responsive%202.PNG)
 
 5. Other functions are showed in video
-![here](https://drive.google.com/file/d/1qKZCubv-9Rt1_GGCrU4j7NTjXHj1FS1F/view?usp=sharing)
+[here](https://drive.google.com/file/d/1qKZCubv-9Rt1_GGCrU4j7NTjXHj1FS1F/view?usp=sharing)
 
 
 ## Tech Stack
