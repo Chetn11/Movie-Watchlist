@@ -15,6 +15,19 @@ export const getData=()=>async(dispatch)=>{
     }
 }
 
+// for single data
+export const getSingleData=(id)=>async(dispatch)=>{
+    try {
+        dispatch({type:GET_DATA_LOADING})
+        const response=await axios.get(`https://movie-watchlist-lake.vercel.app/movies/${id}`);
+        // console.log(response)
+        dispatch({type:GET_DATA_SUCCESS,payload:response.data.data})
+    } catch (error) {
+        dispatch({type:GET_DATA_ERROR})
+    }
+}
+
+
 // add Data
 export const postData=(payload)=>async(dispatch)=>{
     try {
@@ -26,6 +39,16 @@ export const postData=(payload)=>async(dispatch)=>{
     }
 }
 
+export const postReview=(payload,id)=>async(dispatch)=>{
+    console.log(payload);
+    try {
+        dispatch({type:POST_DATA_LOADING})
+        const post_data=await axios.post(`https://movie-watchlist-lake.vercel.app/movies/add-review/${id}`,payload);
+        dispatch({type:POST_DATA_SUCCESS})
+    } catch (error) {
+        dispatch({type:POST_DATA_ERROR})
+    }
+}
 // change status
 export const toggleData=(id,status)=>async(dispatch)=>{
     try {
