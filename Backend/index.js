@@ -11,11 +11,11 @@ app.use(cors());
 
 
 app.get("/",(req,res)=>{
-    res.send({message:"Movies server",getAllMovies:"url/movies"});
+    res.send({message:"Movies server",getAllMovies:"url/movies",add:"url/movies/add",update:"url/movies/edit/:id",delete:"url/movies/delete/:id"});
 })
 
 app.use("/movies",moviesRouter)
-app.listen(8080, async()=>{
+app.listen(8000, async()=>{
     try {
         await connection;
         console.log("Connected to MongoDB.")

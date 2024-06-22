@@ -8,6 +8,21 @@ moviesRouter.get("/",async(req,res)=>{
     res.send({data:data});
 })
 
+// Get movie by ID
+moviesRouter.get("/:movieId", async (req, res) => {
+    const movieId = req.params.movieId;
+    try {
+        const movie = await MoviesModel.findById(movieId);
+        if (movie) {
+            res.send({ data: movie });
+        } else {
+            res.send({ message: "Movie not found" });
+        }
+    } catch (error) {
+        res.send({ message: "Error retrieving movie" });
+    }
+});
+
 
 // creating Data
 moviesRouter.post("/add",async(req,res)=>{
@@ -43,4 +58,26 @@ moviesRouter.delete("/delete/:movieId", async(req,res)=>{
         res.send({message:"Error while Deleting data"})
     }
 })
+
+// Add a review to a movie
+moviesRouter.post("/add-review/:movieId", async (req, res) => {
+    const movieId = req.params.movieId;
+    const { reviewer, comment } = req.body;
+    const newReview = { reviewer, comment };
+
+    try {
+        const movie = await MoviesModel.findById(movieId);
+        if (movie) {
+            movie.reviews.push(newReview);
+            await movie.save();
+            res.send({ data: movie, message: "Review added successfully" });
+        } else {
+            res.status(404).send({ message: "Movie not found" });
+        }
+    } catch (error) {
+        res.status(500).send({ message: "Error while adding review" });
+    }
+});
+
+
 module.exports={moviesRouter}
